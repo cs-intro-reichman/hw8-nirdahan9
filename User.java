@@ -53,6 +53,7 @@
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
         if(this.fCount == 10) return false;
+        if(follows(name)) return false;
         this.follows[fCount++] = name;
         return true;
     }
