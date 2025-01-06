@@ -100,9 +100,9 @@ public class Network {
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
         if(this.userCount == 0) return "";
-        String str = "Network:" + "\n";
+        String str = "Network:";
         for(int i = 0 ; i < this.userCount ; i ++) {
-            str += this.users[i].toString() +"\n";
+            str +=  "\n" + this.users[i].toString();
         }
         return str;
     }
