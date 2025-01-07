@@ -81,7 +81,7 @@
     /** Counts the number of users that both this user and the other user follow.
     /*  Notice: This is the size of the intersection of the two follows lists. */
     public int countMutual(User other) {
-        if(this.name.equals(other.getName())) return 0;
+        if(this.name.equals(other.getName())) return 2;
         int count = 0;
         for(int i = 0 ; i < this.fCount ; i ++) {
             for(int j = 0 ; j < other.fCount ; j ++) {
