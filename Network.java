@@ -63,10 +63,24 @@ public class Network {
     public String recommendWhoToFollow(String name) {
         if(name == null) return null;
         if(this.getUser(name) == null) return null;
+        int[] mutualArr = new int[this.userCount];
+        for(int i = 0 ; i < this.userCount ; i ++) {
+            mutualArr[i] = this.getUser(name).countMutual(this.users[i]);
+        }
+        int originalUserIndex = 0;
+        for(int i = 0 ; i < this.userCount ; i ++) {
+            if(this.users[i].getName().toLowerCase().equals(name.toLowerCase())) {
+                originalUserIndex = i;
+                break;
+            }
+        }
+        mutualArr[originalUserIndex] = 0;
         int maxMutualIndex = 0;
         for(int i = 0 ; i < this.userCount ; i ++) {
-            if(!this.users[i].getName().equals(name) && this.users[i].countMutual(this.getUser(name)) > this.users[maxMutualIndex].countMutual(this.getUser(name))) 
+            boolean notOriginalUser = !this.users[i].getName().toLowerCase().equals(name.toLowerCase());
+            if(notOriginalUser && mutualArr[i] > mutualArr[maxMutualIndex]) {
                 maxMutualIndex = i;
+            }
         }
         return this.users[maxMutualIndex].getName();
     }
