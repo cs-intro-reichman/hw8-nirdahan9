@@ -42,10 +42,11 @@ public class Network {
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
         if(this.userCount == this.users.length) return false;
-         this.users[userCount] = new User(name);
-         this.userCount ++;
-         return true;
-     }
+        if(this.getUser(name) != null) return false;
+        this.users[userCount] = new User(name);
+        this.userCount ++;
+        return true;
+    }
 
     /** Makes the user with name1 follow the user with name2. If successful, returns true.
      *  If any of the two names is not a user in this network,
