@@ -29,6 +29,7 @@ public class Network {
      *  If there is no such user, returns null.
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
+        if(name == null) return null;
         for(int i = 0 ; i < this.userCount ; i ++) {
             if(this.users[i].getName().toLowerCase().equals(name.toLowerCase())) return this.users[i];
         }
@@ -50,6 +51,7 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
+        if(name1 == null || name2 == null) return false;
         if(this.getUser(name1) == null || this.getUser(name2) == null) return false;
         if(name1.toLowerCase().equals(name2.toLowerCase())) return false;
         if(this.getUser(name1.toLowerCase()).follows(name2.toLowerCase())) return false;
@@ -59,6 +61,7 @@ public class Network {
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
     public String recommendWhoToFollow(String name) {
+        if(name == null) return null;
         if(this.getUser(name) == null) return null;
         int maxMutualIndex = 0;
         for(int i = 0 ; i < this.userCount ; i ++) {
@@ -76,7 +79,7 @@ public class Network {
         for(int i = 0 ; i < followers.length ; i ++) {
             int count = 0;
             for(int j = 0 ; j < this.userCount ; j ++) {
-                if(this.users[j].isFriendOf(this.users[i])) count ++;
+                if(this.users[j].follows(this.users[i].getName())) count ++;
             }
             followers[i] = count;
         }
@@ -99,7 +102,7 @@ public class Network {
 
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
-        if(this.userCount == 0) return "";
+        if(this.userCount == 0) return "Network:";
         String str = "Network:";
         for(int i = 0 ; i < this.userCount ; i ++) {
             str +=  "\n" + this.users[i].toString();
